@@ -54,9 +54,14 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
-      router.refresh();
-      toast.success("Store Updated");
+      if (initialData) {
+        await axios.patch(`/api/stores/${params.billboards}`, data);
+      } else {
+        await axios.post(`/api/stores/${params.billboards}`, data);
+
+        router.refresh();
+        toast.success("Store Updated");
+      }
     } catch (error) {
       toast.error("something went Wrong");
     } finally {
