@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from "react";
 
-import { ColorsColumn } from "./columns";
+import { BillboardColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,7 @@ import axios from "axios";
 import AlertModal from "@/components/modals/alert-modal";
 
 interface cellActionProps {
-  data: ColorsColumn;
+  data: BillboardColumn;
 }
 
 const cellAction: React.FC<cellActionProps> = ({ data }) => {
@@ -30,16 +30,17 @@ const cellAction: React.FC<cellActionProps> = ({ data }) => {
   };
 
   const onDelete = async () => {
+    console.log(params.billboardId);
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/colors/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
       router.refresh();
-      router.push(`/${params.storeId}/colors`);
-      toast.success("Color deleted.");
+      router.push(`/${params.storeId}/billboards`);
+      toast.success("Billboard deleted.");
     } catch (error: any) {
       console.log(error);
       toast.error(
-        "Make sure you removed all colors using this category first."
+        "Make sure you removed all categories using this billboard first."
       );
     } finally {
       setLoading(false);
@@ -66,7 +67,9 @@ const cellAction: React.FC<cellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/colors/${data.id}`)}
+            onClick={() =>
+              router.push(`/${params.storeId}/billboards/${data.id}`)
+            }
           >
             <Edit className="mr-2 h-4 w-4" />
             Update

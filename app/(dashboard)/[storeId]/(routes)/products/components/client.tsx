@@ -3,26 +3,27 @@ import Heading from "@/components/ui/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { Separator } from "@/components/ui/separator";
+import { Billboard } from "@prisma/client";
 import { Plus } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { ColorsColumn, columns } from "./columns";
+import { ProductColumn, columns } from "./columns";
 import ApiList from "@/components/ui/api-list";
-interface ColorClientProps {
-  data: ColorsColumn[];
+interface ProductClientProps {
+  data: ProductColumn[];
 }
-const ColorClient: React.FC<ColorClientProps> = ({ data }) => {
+const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Colors(${data.length})`}
-          description={"Manage colors for your store"}
+          title={`Products(${data.length})`}
+          description={"Manage Products for your store"}
         />
-        <Button onClick={() => router.push(`/${params.storeId}/colors/new`)}>
+        <Button onClick={() => router.push(`/${params.storeId}/products/new`)}>
           <Plus className="mr-2 h-4 w-4" />
           Add New
         </Button>
@@ -34,11 +35,11 @@ const ColorClient: React.FC<ColorClientProps> = ({ data }) => {
         //@ts-ignore
         data={data}
       />
-      <Heading title="API" description="API Calls for colors" />
+      <Heading title="API" description="API Calls for products" />
       <Separator />
-      <ApiList entityName={"colors"} entityIdName={"colorsId"} />
+      <ApiList entityName={"products"} entityIdName={"productId"} />
     </>
   );
 };
 
-export default ColorClient;
+export default ProductClient;
